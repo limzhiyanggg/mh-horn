@@ -82,24 +82,32 @@ async function handleHornAlarm() {
     requireInteraction: true,
   });
 
-  await playHornSound();
+  await playHornSound(hasPuzzle);
 }
 
-async function playHornSound() {
-  const url = "offscreen.html";
+async function playHornSound(hasPuzzle) {
+  const url = hasPuzzle ? "offscreen.html?puzzle=1" : "offscreen.html";
   try {
     const has = await chrome.offscreen.hasDocument();
     if (has) await chrome.offscreen.closeDocument();
   } catch (_) {}
 
-  try {
-    await chrome.offscreen.createDocument({
-      url,
-      reasons: ["AUDIO_PLAYBACK"],
-      justification: "Play horn alert sound when countdown reaches zero.",
-    });
-  } catch (e) {
-    console.error("MH Horn: failed to create offscreen document", e);
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      await chrome.offscreen.createDocument({
+        url,
+        reasons: ["AUDIO_PLAYBACK"],
+        justification: "Play horn alert sound when countdown reaches zero.",
+      });
+      return;
+    } catch (e) {
+      if (attempt === 0) {
+        await new Promise((r) => setTimeout(r, 300));
+        try { await chrome.offscreen.closeDocument(); } catch (_) {}
+      } else {
+        console.error("MH Horn: failed to create offscreen document", e);
+      }
+    }
   }
 }
 
