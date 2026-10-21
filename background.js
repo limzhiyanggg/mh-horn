@@ -86,14 +86,15 @@ async function handleHornAlarm() {
 }
 
 async function playHornSound(hasPuzzle) {
+  const url = hasPuzzle ? "offscreen.html?puzzle=1" : "offscreen.html";
   try {
-    // Close any existing offscreen document first
-    await chrome.offscreen.closeDocument().catch(() => {});
+    const has = await chrome.offscreen.hasDocument();
+    if (has) await chrome.offscreen.closeDocument();
   } catch (_) {}
 
   try {
     await chrome.offscreen.createDocument({
-      url: "offscreen.html",
+      url,
       reasons: ["AUDIO_PLAYBACK"],
       justification: "Play horn alert sound when countdown reaches zero.",
     });
