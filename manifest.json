@@ -31,7 +31,7 @@
 
   "web_accessible_resources": [
     {
-      "resources": ["injector.js", "assets/horn.ogg"],
+      "resources": ["injector.js", "assets/horn.ogg", "assets/king-reward.mp3"],
       "matches": ["*://www.mousehuntgame.com/*"]
     }
   ],

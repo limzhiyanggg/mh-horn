@@ -83,16 +83,18 @@ async function handleHornAlarm() {
     requireInteraction: true,
   });
 
-  await playHornSound();
+  await playHornSound(hasPuzzle);
 }
 
-async function playHornSound() {
+async function playHornSound(hasPuzzle) {
   try {
     // Close any existing offscreen document first
     await chrome.offscreen.closeDocument().catch(() => {});
   } catch (_) {}
 
   try {
+    const soundFile = hasPuzzle ? "assets/king-reward.mp3" : "assets/horn.ogg";
+    await chrome.storage.session.set({ soundFile });
     await chrome.offscreen.createDocument({
       url: "offscreen.html",
       reasons: ["AUDIO_PLAYBACK"],
