@@ -76,8 +76,7 @@ async function handleHornAlarm() {
 
   chrome.notifications.create("horn_ready", {
     type: "basic",
-    // iconUrl omitted — add icons/icon48.png to use a custom icon
-    iconUrl: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAATklEQVRoge3BMQEAAADCoPVP7WsIoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAeAMBxAABHgqGGQAAAABJRU5ErkJggg==",
+    iconUrl: "icons/icon128.png",
     title,
     message: body,
     requireInteraction: true,
