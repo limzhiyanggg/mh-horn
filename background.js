@@ -92,8 +92,6 @@ async function playHornSound(hasPuzzle) {
   } catch (_) {}
 
   try {
-    const soundFile = hasPuzzle ? "assets/king-reward.mp3" : "assets/horn.ogg";
-    await chrome.storage.session.set({ soundFile });
     await chrome.offscreen.createDocument({
       url: "offscreen.html",
       reasons: ["AUDIO_PLAYBACK"],

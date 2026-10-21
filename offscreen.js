@@ -1,5 +1,5 @@
-chrome.storage.session.get(["soundFile"], function (data) {
-  const src = data.soundFile || "assets/horn.ogg";
+chrome.storage.local.get(["hasPuzzle"], function (data) {
+  const src = data.hasPuzzle ? "assets/king-reward.mp3" : "assets/horn.ogg";
   const audio = new Audio(chrome.runtime.getURL(src));
 
   audio.addEventListener("ended", function () {
