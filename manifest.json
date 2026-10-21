@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "MH Horn Alert",
+  "version": "1.0",
+  "description": "Desktop notification when your MouseHunt horn is ready.",
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://www.mousehuntgame.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "permissions": [
+    "alarms",
+    "notifications",
+    "storage",
+    "offscreen",
+    "scripting",
+    "tabs"
+  ],
+
+  "host_permissions": [
+    "*://www.mousehuntgame.com/*"
+  ],
+
+  "web_accessible_resources": [
+    {
+      "resources": ["injector.js", "assets/horn.ogg"],
+      "matches": ["*://www.mousehuntgame.com/*"]
+    }
+  ],
+
+  "action": {
+    "default_title": "MH Horn Alert"
+  }
+}
