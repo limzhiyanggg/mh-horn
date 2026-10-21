@@ -76,17 +76,17 @@ async function handleHornAlarm() {
 
   chrome.notifications.create("horn_ready", {
     type: "basic",
-    iconUrl: "icons/icon128.png",
+    iconUrl: chrome.runtime.getURL("icons/icon128.png"),
     title,
     message: body,
     requireInteraction: true,
   });
 
-  await playHornSound(hasPuzzle);
+  await playHornSound();
 }
 
-async function playHornSound(hasPuzzle) {
-  const url = hasPuzzle ? "offscreen.html?puzzle=1" : "offscreen.html";
+async function playHornSound() {
+  const url = "offscreen.html";
   try {
     const has = await chrome.offscreen.hasDocument();
     if (has) await chrome.offscreen.closeDocument();
